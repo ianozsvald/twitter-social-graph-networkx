@@ -22,7 +22,6 @@ if __name__ == "__main__":
         all_names[screen_name] = set([sn.screen_name for sn in get_names(screen_name)])
 
     # we can get an overlapping set with something like this:
-    #set(all_friends['annotateio']).intersection(set(all_friends['ianozsvald']))
-    import pdb; pdb.set_trace()
+    #set(all_names['annotateio']).intersection(set(all_names['ianozsvald']))
 
     cPickle.dump(all_names, open(ALL_NAMES, "w"), protocol=2)

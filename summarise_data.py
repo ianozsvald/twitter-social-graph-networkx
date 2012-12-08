@@ -1,29 +1,28 @@
 import cPickle
-import tst
+import os
+import get_data
 
-#DATA_DIR = "data"
-#screen_names = ['ianozsvald', 'annotateio', 'fluffyemily']
+# output file once we've summarised the screen_names per users
+ALL_NAMES = os.path.join(get_data.DATA_DIR, "all_names.pickle")
 
-
-#def get_friends(sn):
-#    return cPickle.load(open(os.path.join(DATA_DIR, "%s.friends.pickle" % (sn))))
-#all_friends = {}
-#for screen_name in screen_names:
-#    all_friends[screen_name] = set([sn.screen_name for sn in get_friends(screen_name)])
-#def get_followers(sn):
-#   return cPickle.load(open(os.path.join(DATA_DIR, "%s.followers.pickle" % (sn))))
 
 def get_names(sn):
-    fr_filename, fo_filename = tst.get_filenames(screen_name)
+    """Get a list of twitter followers"""
+    fr_filename, fo_filename = get_data.get_filenames(screen_name)
+    # load just the followers
     filename = fo_filename
     names = cPickle.load(open(filename))
     return names
 
-all_names = {}
-for screen_name in tst.screen_names:
-    all_names[screen_name] = set([sn.screen_name for sn in get_names(screen_name)])
 
-# we can get an overlapping set with something like this:
-#set(all_friends['annotateio']).intersection(set(all_friends['ianozsvald']))
+if __name__ == "__main__":
+    # summarise the screen_names from Twitter's JSON into a simple dictionary
+    all_names = {}
+    for screen_name in get_data.screen_names:
+        all_names[screen_name] = set([sn.screen_name for sn in get_names(screen_name)])
 
-cPickle.dump(all_names, open("all_names.pickle", "w"), protocol=2)
+    # we can get an overlapping set with something like this:
+    #set(all_friends['annotateio']).intersection(set(all_friends['ianozsvald']))
+    import pdb; pdb.set_trace()
+
+    cPickle.dump(all_names, open(ALL_NAMES, "w"), protocol=2)

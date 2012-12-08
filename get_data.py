@@ -14,8 +14,10 @@ import twitter  # https://github.com/ianozsvald/python-twitter
 DATA_DIR = "data"  # storage directory for friend/follower data
 
 # list of screen names that we'll want to analyse
-screen_names = ['ianozsvald', 'annotateio', 'fluffyemily', 'jot',
-                'markpriestley', 'steeevem', 'lovedaybrooke', 'jameshaycock', 'localben']
+screen_names = ['ianozsvald', 'annotateio', 'morconsulting', 'fluffyemily',
+                'jot', 'brouberol',
+                'markpriestley', 'steeevem', 'lovedaybrooke',
+                'jameshaycock', 'localben']
 
 
 def get_filenames(screen_name):

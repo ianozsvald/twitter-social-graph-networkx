@@ -4,32 +4,31 @@ import cPickle
 import pylab
 import summarise_data
 
-MAX_FOLLWERS = 20  # limit analysis to speed up our development iterations
+MAX_FOLLOWERS = 200  # limit analysis to speed up our development iterations
 
 # load the follower networks
 af = cPickle.load(open(summarise_data.ALL_NAMES))
 
 # build a graph of all followers
-G = nx.Graph()
+Gf = nx.Graph()
 for screen_name, followers in af.items():
     some_followers = list(followers)[:MAX_FOLLOWERS]
-    G.add_node(screen_name)
-    G.add_nodes_from(some_followers)
+    Gf.add_node(screen_name)
+    Gf.add_nodes_from(some_followers)
     for follower in some_followers:
-        G.add_edge(follower, screen_name)
+        Gf.add_edge(follower, screen_name)
 
 # Use graphviz
 prog = "neato"  # neato is default layout engine in GraphViz
-pos=nx.graphviz_layout(G, prog=prog, root=None, args="")
+pos = nx.graphviz_layout(Gf, prog=prog, root=None, args="")
 
 labels = {}
-for node in G.nodes():
+for node in Gf.nodes():
     labels[node] = ""
-    if len(G.edges(node)) > 2:
-    #if len(G.edges(node)) > 20:
+    if len(Gf.edges(node)) > 2:
         labels[node] = node
 
-nx.draw_networkx(G, pos, with_labels=True, alpha=0.2, labels=labels, font_size=20, font_family='sans-serif')
+nx.draw_networkx(Gf, pos, with_labels=True, alpha=0.2, labels=labels, font_size=20, font_family='sans-serif')
 pylab.axis("off")
 pylab.title("Followers in small Twitter network")
 pylab.show()

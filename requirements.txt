@@ -1,7 +1,11 @@
 argparse==1.2.1
 distribute==0.6.24
 httplib2==0.7.7
+matplotlib==1.2.0
+networkx==1.7
+numpy==1.6.2
 oauth2==1.5.211
+pygraphviz==1.1
 -e git://github.com/ianozsvald/python-twitter.git@5e8e3db4aaea3acbedd052f04dbfbba97212991f#egg=python_twitter-dev
 simplejson==2.6.2
 wsgiref==0.1.2
